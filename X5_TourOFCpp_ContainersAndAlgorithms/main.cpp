@@ -9,7 +9,7 @@ bool handleInputFail(istream &is);
 
 int main() {
     while(true) {
-        cin.clear();
+        if (cin.gcount() > 0) cin.ignore(numeric_limits<streamsize>::max(), '\n');
         int menuOption;
         cout << "\nMenu:\n" << "---------------------------\n" <<
              "1) Input one person\n" <<
