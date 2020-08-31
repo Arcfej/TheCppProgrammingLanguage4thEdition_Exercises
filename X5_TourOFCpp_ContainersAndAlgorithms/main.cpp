@@ -1,9 +1,12 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Person.h"
 
 using namespace std;
 
 void getPerson();
+void getPeople();
 void printPerson(string &name, int &age);
 bool handleInputFail(istream &is);
 
@@ -11,20 +14,25 @@ int main() {
     while(true) {
         if (cin.gcount() > 0) cin.ignore(numeric_limits<streamsize>::max(), '\n');
         int menuOption;
-        cout << "\nMenu:\n" << "---------------------------\n" <<
-             "1) Input one person\n" <<
-             "2) Exit\n";
+        cout << "\n" <<
+                "Menu:\n" <<
+                "---------------------------\n" <<
+                "1) Input one person\n" <<
+                "2) Input multiple people\n" <<
+                "3) Exit\n";
         cin >> menuOption;
         cout << '\n';
 
         handleInputFail(cin);
-
 
         switch (menuOption) {
             case 1:
                 getPerson();
                 break;
             case 2:
+                getPeople();
+                break;
+            case 3:
                 cout << "Goodbye!\n";
                 return 0;
             default:
@@ -57,6 +65,30 @@ void getPerson() {
 
 void printPerson(string &name, int &age) {
     cout << "Hello " << name << ", you're born " << age << " years ago.\n";
+}
+
+void getPeople() {
+    bool read = true;
+    vector<Person> people;
+    while (read) {
+        Person person;
+        cout << "Please enter a person's name and age like this: John Doe,45.\nDon't use a space after the column!\n";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin >> person;
+        if (!handleInputFail(cin)) {
+            people.push_back(person);
+        } else {
+            cout << "Not a valid input.\n";
+        }
+        cout << "Would you like to enter another person? (y/n)\n";
+        char c;
+        cin >> c;
+        read = c == 'y';
+    }
+
+    for (const auto& person : people) {
+        cout << person;
+    }
 }
 
 bool handleInputFail(istream &is) {

@@ -3,4 +3,4 @@ project(X5_TourOFCpp_ContainersAndAlgorithms)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(X5_TourOFCpp_ContainersAndAlgorithms main.cpp)
+add_executable(X5_TourOFCpp_ContainersAndAlgorithms main.cpp Person.cpp Person.h)
